@@ -1,3 +1,40 @@
+/* ============================================================
+   JOINS  -  moved here from s-301/W3D1.sql
+   The slide deck teaches the join types at the end of SQL day one,
+   but both join labs run on day two, so they are taught together here.
+   Already adapted for SQLite: no "sakila." prefix.
+   NOTE: the rest of this file still carries the sakila. prefix and is
+   adapted when Day 4 is rebuilt.
+   ============================================================ */
+
+/* JOIN */
+	/* bringing tables together -> join them -> one step inner join*/
+	/* What is the language of a film?*/
+	SELECT
+		film.film_id,
+	    film.title,
+	    language.name
+	FROM film INNER JOIN language
+		ON film.language_id = language.language_id;
+
+	/* bringing tables together -> join them -> 2 step inner join*/
+	SELECT * FROM actor;
+	SELECT * FROM film_actor;
+	SELECT * FROM film;
+
+	/* many 2 many relations are well handled by a "bridge" table */
+	SELECT
+		film.title,
+		actor.first_name AS Fname,
+		actor.last_name AS Lname,
+	    film_actor.film_id
+
+	FROM actor INNER JOIN film_actor
+		ON actor.actor_id = film_actor.actor_id
+			INNER JOIN film
+				ON film.film_id = film_actor.film_id;
+
+
 /* SUB QUERIES */
     /*Find the list of actors which starred in movies with 
     lengths higher or equal to the average length of all the movies*/
