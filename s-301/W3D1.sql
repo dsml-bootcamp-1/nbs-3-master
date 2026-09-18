@@ -101,4 +101,24 @@
 	GROUP BY rating, rental_duration;
 
 
+	/* HAVING - filtering the GROUPS */
+	/* WHERE filters rows BEFORE they are grouped.
+	   HAVING filters the groups AFTER the aggregate has been calculated,
+	   which is why you can use COUNT() or AVG() in a HAVING but not in a WHERE. */
+
+	/* only the ratings with more than 200 films */
+	SELECT rating, COUNT(*) AS n_films
+	FROM film
+	GROUP BY rating
+	HAVING COUNT(*) > 200;
+
+	/* the two can be combined: WHERE thins the rows, HAVING thins the groups */
+	SELECT rating, COUNT(*) AS n_films, AVG(rental_rate) AS avg_rate
+	FROM film
+	WHERE rental_duration >= 5
+	GROUP BY rating
+	HAVING AVG(rental_rate) > 2.9
+	ORDER BY avg_rate DESC;
+
+
 /* Joins are tomorrow - see s-303/W3D2.sql */
